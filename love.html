@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang web bí mật</title>
+    <style>
+        /* CSS để tạo kiểu cho trang */
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #FFC0CB; /* Nền màu hồng */
+            font-family: Arial, sans-serif;
+            overflow: hidden; /* Ẩn thanh cuộn nếu có hiệu ứng phóng to */
+            cursor: pointer; /* Biến con trỏ thành bàn tay để báo hiệu có thể click */
+        }
+
+        #main-content {
+            font-size: 3em; /* Kích thước chữ lớn */
+            color: #8B0000; /* Màu chữ đỏ đậm */
+            text-align: center;
+            user-select: none; /* Không cho phép chọn chữ */
+            transition: opacity 0.5s ease-out; /* Hiệu ứng mờ dần */
+        }
+
+        #secret-message {
+            position: absolute; /* Đặt tin nhắn ở giữa màn hình */
+            font-size: 4em; /* Kích thước chữ cho tin nhắn bí mật */
+            color: #FF1493; /* Màu hồng đậm */
+            text-align: center;
+            opacity: 0; /* Ban đầu ẩn đi */
+            transform: scale(0.1); /* Ban đầu rất nhỏ */
+            transition: opacity 1s ease-in, transform 15s ease-out; /* Hiệu ứng mờ dần và phóng to dần trong 15s */
+            white-space: nowrap; /* Ngăn không cho chữ xuống dòng */
+            display: flex; /* Dùng flexbox để căn giữa nội dung */
+            flex-direction: column; /* Xếp chữ và trái tim theo chiều dọc */
+            align-items: center; /* Căn giữa theo chiều ngang */
+            justify-content: center; /* Căn giữa theo chiều dọc */
+        }
+
+        #heart {
+            font-size: 0.1em; /* Kích thước trái tim ban đầu rất nhỏ */
+            color: #FF69B4; /* Màu trái tim */
+            margin-top: 20px; /* Khoảng cách giữa chữ và trái tim */
+            transition: font-size 15s ease-out; /* Hiệu ứng phóng to trái tim trong 15s */
+        }
+
+        /* Lớp CSS khi tin nhắn bí mật hiển thị */
+        #secret-message.show {
+            opacity: 1; /* Hiển thị */
+            transform: scale(1); /* Phóng to ra kích thước gốc */
+        }
+
+        #secret-message.show #heart {
+            font-size: 5em; /* Kích thước trái tim cuối cùng */
+        }
+    </style>
+</head>
+<body>
+    <div id="main-content" onclick="showSecretMessage()">
+        Bấm vào đây để thoát ra
+    </div>
+
+    <div id="secret-message">
+        <span>Anh yêu bé Trương Mỹ Xuyên</span>
+        <span id="heart">❤️</span>
+    </div>
+
+    <script>
+        // JavaScript để xử lý logic
+        function showSecretMessage() {
+            // Lấy các phần tử HTML bằng ID của chúng
+            const mainContent = document.getElementById('main-content');
+            const secretMessage = document.getElementById('secret-message');
+            const heart = document.getElementById('heart');
+
+            // Ẩn nội dung chính bằng cách thay đổi độ mờ
+            mainContent.style.opacity = '0';
+            // Vô hiệu hóa sự kiện click để tránh kích hoạt lại
+            mainContent.onclick = null; 
+
+            // Đặt một bộ đếm thời gian (setTimeout) để chờ 15 giây
+            setTimeout(() => {
+                // Sau 15 giây, thêm lớp 'show' vào tin nhắn bí mật
+                // Lớp này sẽ kích hoạt hiệu ứng hiển thị và phóng to đã định nghĩa trong CSS
+                secretMessage.classList.add('show');
+            }, 3000); // 3000 milliseconds = 3 giây
+        }
+    </script>
+</body>
+</html>
